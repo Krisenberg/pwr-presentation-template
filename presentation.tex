@@ -1,0 +1,101 @@
+\documentclass[aspectratio=169, 10pt]{beamer}
+% \documentclass[aspectratio=43, 10pt]{beamer}
+\usetheme{gotham}
+
+\gothamset{
+    numbering=none,
+    % format subtitle=lower,
+    parttocframe default=off,  % Disable the display of the table of content frame after the part frame
+    sectiontocframe default=off,  % Disable the display of the table of content frame after the section
+    subsectiontocframe default=off,  % Disable the display of the table of content frame after the subsection
+}
+
+\usepackage{graphicx}
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+\usepackage{xcolor}
+\usepackage{ragged2e} % Import package for justification
+\usepackage{tabularx}
+\usepackage{minted}
+\usepackage[font=scriptsize,justification=centering]{caption}
+
+\usepackage{natbib}  % or \usepackage{biblatex}
+\usepackage{url}
+% \usepackage{apacite}
+\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+
+\uselanguage{polish}
+\languagepath{polish}
+\deftranslation[to=polish]{Definition}{Definicja}
+
+\definecolor{primaryDark}{RGB}{16, 38, 59}  % Dark blue
+% \definecolor{primaryDark}{RGB}{34,40,49}  % Dark grey
+\definecolor{primaryLight}{RGB}{238, 238, 238}
+\definecolor{secondaryDark}{RGB}{49,54,63}
+\definecolor{accent}{RGB}{255, 167, 37}
+\definecolor{separatorColor}{RGB}{255, 153, 51}
+\definecolor{hrefColor}{RGB}{73, 61, 158}
+
+\colorlet{colorA}{primaryDark}
+\colorlet{colorAreversed}{primaryLight}
+\colorlet{colorB}{secondaryDark}
+\colorlet{colorC}{accent}
+
+\setbeamercolor{standout}{bg=primaryDark}
+\setbeamercolor{normal text}{fg=primaryDark}
+\setbeamercolor{frametitle}{fg=primaryLight, bg=primaryDark}
+\setbeamercolor{title separator}{fg=separatorColor}
+
+\setbeamerfont{subtitle}{size=\small}  % Adjust subtitle size
+
+\setbeamertemplate{frame footer}{
+  \vspace{0.1cm}
+  \begin{tabularx}{\dimexpr\paperwidth-1cm\relax}{X c X} % Adjusted width to fit margins
+    \raggedright\footnotesize\textcolor{secondaryDark!50}{Grupa M2} &
+    \centering\footnotesize\textcolor{secondaryDark!50}{Projekt badawczo rozwojowy w IO} &
+    \raggedleft\footnotesize\textcolor{secondaryDark!50}{\insertframenumber/\inserttotalframenumber}
+  \end{tabularx}
+  \hspace{0.2cm}
+}
+
+
+
+\newcommand{\instituteLogo}{
+    \includegraphics[height=0.7cm]{logos/pwr-logo.png}
+}
+
+\title{Example title}
+\author{John Doe}
+\institute{
+    \vspace{2.5cm}
+    Wrocław University of Science and Technology\\
+    Advanced AI
+}
+\date{28.04.2025}
+
+\renewcommand{\gothamInstituteLogoSquare}[1][2ex]{
+    \instituteLogo
+}
+
+\begin{document}
+
+\begin{frame}[nofootline]
+  \maketitle
+\end{frame}
+
+\begin{frame}{Introduction}
+  Some text with citation \cite{pontillo2024}.
+\end{frame}
+
+
+\renewcommand{\bibsection}{}
+\begin{frame}{References}
+  \bibliographystyle{plain}
+  \scriptsize
+  \bibliography{references}
+\end{frame}
+
+\end{document}
+
+
