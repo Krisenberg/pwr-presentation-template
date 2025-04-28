@@ -12,7 +12,7 @@ A simple LaTeX template for presentations at Wrocław University of Science and 
 
 
 ## Attribution
-This template is based on the [beamertheme-gotham](hhttps://gitlab.com/RomainNOEL/beamertheme-gotham) created by Romain NOEL. The original work has been sligthly modified, e.g. by adding a WUST affiliation (logo). All changes are drescribed here: .
+This template is based on the [beamertheme-gotham](https://gitlab.com/RomainNOEL/beamertheme-gotham) created by Romain NOEL. The original work has been sligthly modified, e.g. by adding a WUST affiliation (logo). All changes are drescribed here: [CHANGES](https://github.com/Krisenberg/pwr-presentation-template/blob/main/CHANGES.md).
 
 
 ## Preview
