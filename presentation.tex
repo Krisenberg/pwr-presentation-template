@@ -1,10 +1,8 @@
 \documentclass[aspectratio=169, 10pt]{beamer}
-% \documentclass[aspectratio=43, 10pt]{beamer}
 \usetheme{gotham}
 
 \gothamset{
     numbering=none,
-    % format subtitle=lower,
     parttocframe default=off,  % Disable the display of the table of content frame after the part frame
     sectiontocframe default=off,  % Disable the display of the table of content frame after the section
     subsectiontocframe default=off,  % Disable the display of the table of content frame after the subsection
@@ -14,16 +12,20 @@
 \usepackage{changepage}
 \usepackage{appendixnumberbeamer}
 \usepackage{xcolor}
-\usepackage{ragged2e} % Import package for justification
+\usepackage{ragged2e}
 \usepackage{tabularx}
-\usepackage{minted}
 \usepackage[font=scriptsize,justification=centering]{caption}
-
 \usepackage{natbib}  % or \usepackage{biblatex}
 \usepackage{url}
 % \usepackage{apacite}
 \usepackage[polish]{babel}
 \usepackage[T1]{fontenc}
+\usepackage{xspace}
+
+\usepackage{minted}  % Used for code snippet highligthing
+\usemintedstyle{emacs}
+
+\usepackage{lipsum}  % Used for inserting text placeholders
 
 \uselanguage{polish}
 \languagepath{polish}
@@ -33,63 +35,118 @@
 % \definecolor{primaryDark}{RGB}{34,40,49}  % Dark grey
 \definecolor{primaryLight}{RGB}{238, 238, 238}
 \definecolor{secondaryDark}{RGB}{49,54,63}
-\definecolor{accent}{RGB}{255, 167, 37}
+% \definecolor{accent}{RGB}{255, 167, 37}
 \definecolor{separatorColor}{RGB}{255, 153, 51}
-\definecolor{hrefColor}{RGB}{73, 61, 158}
+% \definecolor{hrefColor}{RGB}{73, 61, 158}
 
-\colorlet{colorA}{primaryDark}
-\colorlet{colorAreversed}{primaryLight}
-\colorlet{colorB}{secondaryDark}
-\colorlet{colorC}{accent}
+% \colorlet{colorA}{primaryDark}
+% \colorlet{colorAreversed}{primaryLight}
+% \colorlet{colorB}{secondaryDark}
+% \colorlet{colorC}{accent}
 
 \setbeamercolor{standout}{bg=primaryDark}
 \setbeamercolor{normal text}{fg=primaryDark}
 \setbeamercolor{frametitle}{fg=primaryLight, bg=primaryDark}
 \setbeamercolor{title separator}{fg=separatorColor}
 
-\setbeamerfont{subtitle}{size=\small}  % Adjust subtitle size
+% \setbeamerfont{subtitle}{size=\small}  % Adjust subtitle size
 
+
+% -------------------- Title Slide Information --------------------
+\title{Artifficial Intelligence in test smell detection}
+\author{Jan Kowalski}
+\institute{
+    \vspace{2.5cm}
+    Wrocław University of Science and Technology\\
+    Advanced Topics in Artifficial Intelligence
+}
+\date{01.05.2025}
+
+
+% -------------------- Footer Customization --------------------
 \setbeamertemplate{frame footer}{
   \vspace{0.1cm}
   \begin{tabularx}{\dimexpr\paperwidth-1cm\relax}{X c X} % Adjusted width to fit margins
-    \raggedright\footnotesize\textcolor{secondaryDark!50}{Grupa M2} &
-    \centering\footnotesize\textcolor{secondaryDark!50}{Projekt badawczo rozwojowy w IO} &
-    \raggedleft\footnotesize\textcolor{secondaryDark!50}{\insertframenumber/\inserttotalframenumber}
+    \raggedright\footnotesize\textcolor{secondaryDark!50}{\insertauthor} &  % Left part of the footer
+    \centering\footnotesize\textcolor{secondaryDark!50}{Advanced Topics in AI} &  % Middle part of the footer
+    \raggedleft\footnotesize\textcolor{secondaryDark!50}{\insertframenumber/\inserttotalframenumber}  % Right part of the footer
   \end{tabularx}
   \hspace{0.2cm}
 }
 
 
-
-\newcommand{\instituteLogo}{
+% -------------------- Set logo / logos --------------------
+\renewcommand{\gothamInstituteLogoSquare}[1][2ex]{
     \includegraphics[height=0.7cm]{logos/pwr-logo.png}
 }
 
-\title{Example title}
-\author{John Doe}
-\institute{
-    \vspace{2.5cm}
-    Wrocław University of Science and Technology\\
-    Advanced AI
-}
-\date{28.04.2025}
-
-\renewcommand{\gothamInstituteLogoSquare}[1][2ex]{
-    \instituteLogo
-}
 
 \begin{document}
 
+
+% -------------------- Title Slide --------------------
 \begin{frame}[nofootline]
-  \maketitle
+    \maketitle  % Generates the title slide
 \end{frame}
 
+
+% -------------------- Rest of the presentation (content) --------------------
 \begin{frame}{Introduction}
   Some text with citation \cite{pontillo2024}.
 \end{frame}
 
 
-\renewcommand{\bibsection}{}
+\begin{frame}[fragile]{Slide with 2 columns and small code snippets}
+    \begin{columns}
+    \centering
+    \begin{column}{0.52\textwidth}
+        \justifying
+        \small
+        \lipsum[1][4-6]\\[2.5ex]
+        \lipsum[2][1-4]
+    \end{column}
+    \begin{column}{0.45\textwidth}
+        \centering
+        \scriptsize
+
+        \begin{minted}{python}
+my_list = [2, 5, 6]
+my_list[len(my_list):] = [5]  # [2, 5, 6, 5]
+        \end{minted}
+
+        \vspace{2pt}
+        \hrule
+        \vspace{2pt}
+        Appending to the list using slice assignment\\[5ex]
+
+        \begin{minted}{python}
+my_list = [2, 5, 6]
+my_list.extend([-4])  # [2, 5, 6, -4]
+        \end{minted}
+
+        \vspace{2pt}
+        \hrule
+        \vspace{2pt}
+        Appending to the list using \texttt{extend()}\\[5ex]
+
+
+        \begin{minted}{python}
+my_list = [2, 5, 6]
+my_list.insert(len(my_list), 3)  # [2, 5, 6, 3]
+        \end{minted}
+
+        \vspace{2pt}
+        \hrule
+        \vspace{2pt}
+        Appending to the list using \texttt{insert()}\\[5ex]
+
+    \end{column}
+  \end{columns}
+\end{frame}
+
+
+% -------------------- References (from the references.bib file) --------------------
+\renewcommand{\bibsection}{}  % Removes a section creation on the references
 \begin{frame}{References}
   \bibliographystyle{plain}
   \scriptsize
