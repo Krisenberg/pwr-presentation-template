@@ -1,0 +1,52 @@
+%% Copyright (C) 2025-20** by Krzysztof Głowacz <krzysztof.glowacz88@gmail.com>
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%% http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is Krzysztof Głowacz.
+%% Contributors: Krzysztof Głowacz (2025-20**)
+%% 
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemepwr}[2025/05/02 LaTeX Beamer theme for presentations @PWR (WUST)]
+
+\RequirePackage{tikz}
+\RequirePackage{etoolbox}
+
+\AtBeginDocument{
+  \setbeamertemplate{subsection in toc}{%
+    \begin{tikzpicture}[outer sep=0pt, inner sep=0pt, line width=0pt]
+      \path[use as bounding box] (0,0) rectangle (\textwidth,0);
+      \node[anchor=base west] at (8ex,0) { \inserttocsubsection};
+    \end{tikzpicture}
+  }
+
+  \setbeamertemplate{section in toc}{%
+    \begin{tikzpicture}[outer sep=0pt, inner sep=0pt, line width=0pt, remember picture]
+      \path[use as bounding box] (0,0) rectangle (\textwidth,0);
+      \node[anchor=base east] (section-number-\inserttocsectionnumber) at (2ex,0) {\inserttocsectionnumber};
+      \node[anchor=base west] (toc-\inserttocsectionnumber) at (8ex,0) { \inserttocsection};
+    \end{tikzpicture}
+  }
+
+  \makeatletter
+  \apptocmd{\tableofcontents}{%
+    \begin{tikzpicture}[remember picture,overlay]
+      \draw[accentColor,line width=0.1cm] ([xshift=4ex,yshift=2ex]section-number-1.north east) -- ([xshift=4ex,yshift=-2ex]section-number-\the\beamer@sectionmax.south east);
+    \end{tikzpicture}%
+  }{}{}
+  \makeatother
+}
+
+% Define accentColor if not already defined
+\providecommand{\accentColor}{green}
+
+\endinput
+%%
+%% End of file `beamerthemepwr.sty'.

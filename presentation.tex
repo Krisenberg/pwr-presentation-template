@@ -1,5 +1,6 @@
 \documentclass[aspectratio=169, 10pt]{beamer}
 \usetheme{gotham}
+\usetheme{pwr}
 
 \gothamset{
     numbering=none,
@@ -27,6 +28,10 @@
 
 \usepackage{lipsum}  % Used for inserting text placeholders
 
+\usepackage{tcolorbox}
+
+\usepackage{tikz}
+
 \uselanguage{polish}
 \languagepath{polish}
 \deftranslation[to=polish]{Definition}{Definicja}
@@ -36,7 +41,7 @@
 \definecolor{primaryLight}{RGB}{238, 238, 238}
 \definecolor{secondaryDark}{RGB}{49,54,63}
 % \definecolor{accent}{RGB}{255, 167, 37}
-\definecolor{separatorColor}{RGB}{255, 153, 51}
+\definecolor{accentColor}{RGB}{255, 153, 51}
 % \definecolor{hrefColor}{RGB}{73, 61, 158}
 
 % \colorlet{colorA}{primaryDark}
@@ -47,9 +52,33 @@
 \setbeamercolor{standout}{bg=primaryDark}
 \setbeamercolor{normal text}{fg=primaryDark}
 \setbeamercolor{frametitle}{fg=primaryLight, bg=primaryDark}
-\setbeamercolor{title separator}{fg=separatorColor}
+\setbeamercolor{progress bar}{fg=accentColor}
+\setbeamercolor{title separator}{fg=accentColor}
 
 % \setbeamerfont{subtitle}{size=\small}  % Adjust subtitle size
+
+% \setbeamertemplate{subsection in toc}{%
+%   \begin{tikzpicture}[outer sep=0pt, inner sep=0pt, line width=0pt]
+%     \path[use as bounding box] (0,0) rectangle (\textwidth,0);
+%     \node[anchor=base west] at (8ex,0) { \inserttocsubsection};
+%   \end{tikzpicture}
+% }
+
+% \setbeamertemplate{section in toc}{%
+%   \begin{tikzpicture}[outer sep=0pt, inner sep=0pt, line width=0pt, remember picture]
+%     \path[use as bounding box] (0,0) rectangle (\textwidth,0);
+%     \node[anchor=base east] (section-number-\inserttocsectionnumber) at (2ex,0) {\inserttocsectionnumber};
+%     \node[anchor=base west] (toc-\inserttocsectionnumber) at (8ex,0) { \inserttocsection};
+%   \end{tikzpicture}
+% }
+
+% \makeatletter
+% \apptocmd{\tableofcontents}{%
+%   \begin{tikzpicture}[remember picture,overlay]
+%     \draw[accentColor,line width=0.1cm] ([xshift=4ex,yshift=2ex]section-number-1.north east) -- ([xshift=4ex,yshift=-2ex]section-number-\the\beamer@sectionmax.south east);
+%   \end{tikzpicture}%
+% }{}{}
+% \makeatother
 
 
 % -------------------- Title Slide Information --------------------
@@ -77,12 +106,19 @@
 
 % -------------------- Set logo / logos --------------------
 \renewcommand{\gothamInstituteLogoSquare}[1][2ex]{
-    \includegraphics[height=0.7cm]{logos/pwr-logo.png}
+    \includegraphics[height=0.7cm]{logos/pwr_logo.png}
+
+    % Use the following command to include 2 logos, one next to each other
+    % \includegraphics[height=0.7cm]{logos/pwr_logo.png} \hspace{0.35cm}
+    % \includegraphics[height=0.7cm]{logos/wit_logo.png}
 }
 
 
-\begin{document}
+% -------------------- Define a custom definition box --------------------
+\newtcolorbox{defbox}[1]{colback=secondaryDark!10!white, colframe=secondaryDark!75!white, fonttitle=\bfseries, title=#1}
 
+
+\begin{document}
 
 % -------------------- Title Slide --------------------
 \begin{frame}[nofootline]
@@ -90,12 +126,24 @@
 \end{frame}
 
 
-% -------------------- Rest of the presentation (content) --------------------
-\begin{frame}{Introduction}
-  Some text with citation \cite{pontillo2024}.
+\begin{frame}[nofootline, standin]
+    \large \textbf{Table of contents}
+    % \vspace{15pt}
+    % \hrule
+    % \vspace{15pt}
+    \tableofcontents  % Generates the table of contents
 \end{frame}
 
 
+% -------------------- Rest of the presentation (content) --------------------
+\section{Formatting and citations}
+\begin{frame}{Slide with text formatting and citations}
+    \lipsum[1][1-10]\cite{lipsum}\\[2.5ex]
+    Another \textbf{text} \textit{with} \underline{citation} \cite{pontillo2024}.
+\end{frame}
+
+
+\section{Columar layout and code snippets}
 \begin{frame}[fragile]{Slide with 2 columns and small code snippets}
     \begin{columns}
     \centering
@@ -141,16 +189,39 @@ my_list.insert(len(my_list), 3)  # [2, 5, 6, 3]
         Appending to the list using \texttt{insert()}\\[5ex]
 
     \end{column}
-  \end{columns}
+\end{columns}
+\end{frame}
+
+
+\section{Definitions}
+\begin{frame}[fragile]{Slide with definitions}
+    \begin{defbox}{Test smell \cite{pontillo2024}}
+        Test smells are symptoms of sub-optimal design choices adopted when developing test cases.
+    \end{defbox}
+    \vspace{0.2cm}
+    \begin{defbox}{Cumulative distribution function\cite{wiki:normal_dist}}
+        The cumulative distribution function (CDF) of the standard normal distribution, usually denoted with the capital Greek letter $\Phi$, is the integral 
+        \begin{equation}
+            \Phi(x) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{x}{e^{-t^2 / 2}dt}
+        \end{equation}
+    \end{defbox}
+\end{frame}
+
+
+\begin{frame}[fragile]{Slide with a pause}
+    \lipsum[1][1-5]\\[2ex]
+    \pause
+    \justifying
+    This text appears \textbf{after a pause}. \lipsum[1][6-15]
 \end{frame}
 
 
 % -------------------- References (from the references.bib file) --------------------
 \renewcommand{\bibsection}{}  % Removes a section creation on the references
 \begin{frame}{References}
-  \bibliographystyle{plain}
-  \scriptsize
-  \bibliography{references}
+\bibliographystyle{plain}
+\scriptsize
+\bibliography{references}
 \end{frame}
 
 \end{document}
