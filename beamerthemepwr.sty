@@ -16,36 +16,103 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{beamerthemepwr}[2025/05/02 LaTeX Beamer theme for presentations @PWR (WUST)]
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%   PACKAGES     %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{tikz}
-\RequirePackage{etoolbox}
+\RequirePackage{graphicx}
+\RequirePackage{changepage}
+\RequirePackage{appendixnumberbeamer}
+\RequirePackage{xcolor}
+\RequirePackage{ragged2e}
+\RequirePackage{tabularx}
+\RequirePackage[font=scriptsize,justification=centering]{caption}
+\RequirePackage{natbib}
+\RequirePackage{url}
+\RequirePackage[polish]{babel}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{xspace}
 
-\AtBeginDocument{
-  \setbeamertemplate{subsection in toc}{%
-    \begin{tikzpicture}[outer sep=0pt, inner sep=0pt, line width=0pt]
-      \path[use as bounding box] (0,0) rectangle (\textwidth,0);
-      \node[anchor=base west] at (8ex,0) { \inserttocsubsection};
-    \end{tikzpicture}
-  }
+\RequirePackage{lipsum}  % Used for inserting text placeholders
 
-  \setbeamertemplate{section in toc}{%
-    \begin{tikzpicture}[outer sep=0pt, inner sep=0pt, line width=0pt, remember picture]
-      \path[use as bounding box] (0,0) rectangle (\textwidth,0);
-      \node[anchor=base east] (section-number-\inserttocsectionnumber) at (2ex,0) {\inserttocsectionnumber};
-      \node[anchor=base west] (toc-\inserttocsectionnumber) at (8ex,0) { \inserttocsection};
-    \end{tikzpicture}
-  }
+\RequirePackage{tcolorbox}
 
-  \makeatletter
-  \apptocmd{\tableofcontents}{%
-    \begin{tikzpicture}[remember picture,overlay]
-      \draw[accentColor,line width=0.1cm] ([xshift=4ex,yshift=2ex]section-number-1.north east) -- ([xshift=4ex,yshift=-2ex]section-number-\the\beamer@sectionmax.south east);
-    \end{tikzpicture}%
-  }{}{}
-  \makeatother
+\RequirePackage{minted}  % Used for code snippet highligthing
+\usemintedstyle{emacs}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%   COLORS     %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{primaryDark}{RGB}{16, 38, 59}  % Dark blue
+% \definecolor{primaryDark}{RGB}{34,40,49}  % Dark grey
+\definecolor{primaryLight}{RGB}{238, 238, 238}
+\definecolor{secondaryDark}{RGB}{49, 54, 63}
+\definecolor{accentColor}{RGB}{255, 153, 51}
+
+\setbeamercolor{standout}{bg=primaryDark}
+\setbeamercolor{normal text}{fg=primaryDark}
+\setbeamercolor{frametitle}{fg=primaryLight, bg=primaryDark}
+\setbeamercolor{progress bar}{fg=accentColor}
+\setbeamercolor{title separator}{fg=accentColor}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%   FOOTER     %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\footerLeft#1{\gdef\@footerLeft{#1}}
+\def\@footerLeft{\@latex@error{No \noexpand\footerLeft given}\@ehc}
+
+\def\footerMiddle#1{\gdef\@footerMiddle{#1}}
+\def\@footerMiddle{\@latex@error{No \noexpand\footerMiddle given}\@ehc}
+
+\def\footerRight#1{\gdef\@footerRight{#1}}
+\def\@footerRight{\@latex@error{No \noexpand\footerRight given}\@ehc}
+
+\setbeamertemplate{frame footer}{
+  \vspace{0.1cm}
+  \begin{tabularx}{\dimexpr\paperwidth-1cm\relax}{X c X} % Adjusted width to fit margins
+    \raggedright\footnotesize\textcolor{secondaryDark!50}{\@footerLeft} &
+    \centering\footnotesize\textcolor{secondaryDark!50}{\@footerMiddle} &  % Middle part of the footer
+    \raggedleft\footnotesize\textcolor{secondaryDark!50}{\@footerRight}  % Right part of the footer
+  \end{tabularx}
+  \hspace{0.2cm}
 }
 
-% Define accentColor if not already defined
-\providecommand{\accentColor}{green}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%   TABLE OF CONTENTS     %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{section in toc}{%
+    \begin{tikzpicture}[outer sep=0pt, inner sep=0pt, line width=0pt, remember picture]
+        \path[use as bounding box] (0,0) rectangle (\textwidth,0);
+        \node[anchor=base east] (section-number-\inserttocsectionnumber) at (2ex,0) {\inserttocsectionnumber};
+        \node[anchor=base west] (toc-\inserttocsectionnumber) at (8ex,0) { \inserttocsection};
+    \end{tikzpicture}
+}
+
+\setbeamertemplate{subsection in toc}{%
+    \begin{tikzpicture}[outer sep=0pt, inner sep=0pt, line width=0pt]
+        \path[use as bounding box] (0,0) rectangle (\textwidth,0);
+        \node[anchor=base west] at (8ex,0) {\small \inserttocsubsection};
+    \end{tikzpicture}
+}
+
+\makeatletter
+\apptocmd{\tableofcontents}{%
+    \begin{tikzpicture}[remember picture,overlay]
+        \draw[accentColor,line width=0.1cm] ([xshift=4ex,yshift=2ex]section-number-1.north east) -- ([xshift=4ex,yshift=-2ex]section-number-\the\beamer@sectionmax.south east);
+    \end{tikzpicture}%
+}{}{}
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%   DEFINITION BOX     %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtcolorbox{defbox}[1]{colback=secondaryDark!10!white, colframe=secondaryDark!75!white, fonttitle=\bfseries, title=#1}
+
 
 \endinput
 %%

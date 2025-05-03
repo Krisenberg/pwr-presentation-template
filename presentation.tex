@@ -4,81 +4,14 @@
 
 \gothamset{
     numbering=none,
+    partframe default=off,  % Disable the display of the the part frame
+    subsectionframe default=off,  % Disable the display of the subsection frame
     parttocframe default=off,  % Disable the display of the table of content frame after the part frame
     sectiontocframe default=off,  % Disable the display of the table of content frame after the section
     subsectiontocframe default=off,  % Disable the display of the table of content frame after the subsection
+    progressbar style=fixed circle,
+    % sectionframe template=gotham progressvert,
 }
-
-\usepackage{graphicx}
-\usepackage{changepage}
-\usepackage{appendixnumberbeamer}
-\usepackage{xcolor}
-\usepackage{ragged2e}
-\usepackage{tabularx}
-\usepackage[font=scriptsize,justification=centering]{caption}
-\usepackage{natbib}  % or \usepackage{biblatex}
-\usepackage{url}
-% \usepackage{apacite}
-\usepackage[polish]{babel}
-\usepackage[T1]{fontenc}
-\usepackage{xspace}
-
-\usepackage{minted}  % Used for code snippet highligthing
-\usemintedstyle{emacs}
-
-\usepackage{lipsum}  % Used for inserting text placeholders
-
-\usepackage{tcolorbox}
-
-\usepackage{tikz}
-
-\uselanguage{polish}
-\languagepath{polish}
-\deftranslation[to=polish]{Definition}{Definicja}
-
-\definecolor{primaryDark}{RGB}{16, 38, 59}  % Dark blue
-% \definecolor{primaryDark}{RGB}{34,40,49}  % Dark grey
-\definecolor{primaryLight}{RGB}{238, 238, 238}
-\definecolor{secondaryDark}{RGB}{49,54,63}
-% \definecolor{accent}{RGB}{255, 167, 37}
-\definecolor{accentColor}{RGB}{255, 153, 51}
-% \definecolor{hrefColor}{RGB}{73, 61, 158}
-
-% \colorlet{colorA}{primaryDark}
-% \colorlet{colorAreversed}{primaryLight}
-% \colorlet{colorB}{secondaryDark}
-% \colorlet{colorC}{accent}
-
-\setbeamercolor{standout}{bg=primaryDark}
-\setbeamercolor{normal text}{fg=primaryDark}
-\setbeamercolor{frametitle}{fg=primaryLight, bg=primaryDark}
-\setbeamercolor{progress bar}{fg=accentColor}
-\setbeamercolor{title separator}{fg=accentColor}
-
-% \setbeamerfont{subtitle}{size=\small}  % Adjust subtitle size
-
-% \setbeamertemplate{subsection in toc}{%
-%   \begin{tikzpicture}[outer sep=0pt, inner sep=0pt, line width=0pt]
-%     \path[use as bounding box] (0,0) rectangle (\textwidth,0);
-%     \node[anchor=base west] at (8ex,0) { \inserttocsubsection};
-%   \end{tikzpicture}
-% }
-
-% \setbeamertemplate{section in toc}{%
-%   \begin{tikzpicture}[outer sep=0pt, inner sep=0pt, line width=0pt, remember picture]
-%     \path[use as bounding box] (0,0) rectangle (\textwidth,0);
-%     \node[anchor=base east] (section-number-\inserttocsectionnumber) at (2ex,0) {\inserttocsectionnumber};
-%     \node[anchor=base west] (toc-\inserttocsectionnumber) at (8ex,0) { \inserttocsection};
-%   \end{tikzpicture}
-% }
-
-% \makeatletter
-% \apptocmd{\tableofcontents}{%
-%   \begin{tikzpicture}[remember picture,overlay]
-%     \draw[accentColor,line width=0.1cm] ([xshift=4ex,yshift=2ex]section-number-1.north east) -- ([xshift=4ex,yshift=-2ex]section-number-\the\beamer@sectionmax.south east);
-%   \end{tikzpicture}%
-% }{}{}
-% \makeatother
 
 
 % -------------------- Title Slide Information --------------------
@@ -93,15 +26,9 @@
 
 
 % -------------------- Footer Customization --------------------
-\setbeamertemplate{frame footer}{
-  \vspace{0.1cm}
-  \begin{tabularx}{\dimexpr\paperwidth-1cm\relax}{X c X} % Adjusted width to fit margins
-    \raggedright\footnotesize\textcolor{secondaryDark!50}{\insertauthor} &  % Left part of the footer
-    \centering\footnotesize\textcolor{secondaryDark!50}{Advanced Topics in AI} &  % Middle part of the footer
-    \raggedleft\footnotesize\textcolor{secondaryDark!50}{\insertframenumber/\inserttotalframenumber}  % Right part of the footer
-  \end{tabularx}
-  \hspace{0.2cm}
-}
+\footerLeft{\insertauthor}  % Left part of the footer - can be blank
+\footerMiddle{Advanced Topics in AI}  % Middle part of the footer - can be blank
+\footerRight{\insertframenumber/\inserttotalframenumber}  % Right part of the footer - can be blank
 
 
 % -------------------- Set logo / logos --------------------
@@ -114,10 +41,6 @@
 }
 
 
-% -------------------- Define a custom definition box --------------------
-\newtcolorbox{defbox}[1]{colback=secondaryDark!10!white, colframe=secondaryDark!75!white, fonttitle=\bfseries, title=#1}
-
-
 \begin{document}
 
 % -------------------- Title Slide --------------------
@@ -127,10 +50,8 @@
 
 
 \begin{frame}[nofootline, standin]
-    \large \textbf{Table of contents}
-    % \vspace{15pt}
-    % \hrule
-    % \vspace{15pt}
+    \large \textbf{Table of contents}\\[1.5ex]
+    \normalsize
     \tableofcontents  % Generates the table of contents
 \end{frame}
 
@@ -143,8 +64,9 @@
 \end{frame}
 
 
-\section{Columar layout and code snippets}
-\begin{frame}[fragile]{Slide with 2 columns and small code snippets}
+\section{Layout and code snippets}
+\subsection{First example}
+\begin{frame}[fragile]{Slide with 2 columns: text and small code snippets}
     \begin{columns}
     \centering
     \begin{column}{0.52\textwidth}
@@ -192,6 +114,74 @@ my_list.insert(len(my_list), 3)  # [2, 5, 6, 3]
 \end{columns}
 \end{frame}
 
+\subsection{Second example}
+\begin{frame}{Columnar layout with text only}
+    \justifying
+    \lipsum[1][1-5]\\[8ex]
+  
+    \begin{columns}
+        \pause
+        \centering
+        \begin{column}{0.46\textwidth}
+            \justifying
+            Some key assumptions:
+            \begin{itemize}
+                \item \textit{\lipsum[1][6]}
+                \item \textit{\lipsum[1][7]}
+            \end{itemize}
+            \vspace{0.2cm}
+        \end{column}
+        \pause
+        \begin{column}{0.46\textwidth}
+            \justifying
+            \textbf{\lipsum[1][8-12]}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+\subsection{Third example}
+\begin{frame}[fragile]{Columnar layout with code snippets only}
+    \begin{columns}
+        \centering
+        \begin{column}{0.46\textwidth}
+            \scriptsize
+            \begin{minted}[autogobble]{java}
+                public class UserService {
+                    public User createUser(User user) { ... }
+                    public boolean validateEmail(String email) { ... }
+                    public void sendWelcomeEmail(User user) { ... }
+                    public void calculateUserStats() { ... }
+                    public void generateReport() { ... }
+                }
+            \end{minted}
+            \vspace{2.85cm}
+        \end{column}
+
+        \begin{column}{0.46\textwidth}
+            \scriptsize
+            \begin{minted}[autogobble]{java}
+                public class UserService {
+                    public User createUser(User user) { ... }
+                    public User getUserById(String id) { ... }
+                    public void updateUser(User user) { ... }
+                    public void deleteUser(String id) { ... }
+                }
+                
+                public class EmailService {
+                    public void sendWelcomeEmail(User user) { ... }
+                    public boolean validateEmail(String email) { ... }
+                }
+                
+                public class ReportingService {
+                    public void calculateUserStats() { ... }
+                    public void generateReport() { ... }
+                }
+            \end{minted}
+        \end{column}
+    \end{columns}
+\end{frame}
+
 
 \section{Definitions}
 \begin{frame}[fragile]{Slide with definitions}
@@ -214,6 +204,30 @@ my_list.insert(len(my_list), 3)  # [2, 5, 6, 3]
     \justifying
     This text appears \textbf{after a pause}. \lipsum[1][6-15]
 \end{frame}
+
+
+
+{
+    \AtBeginSection{}
+    \section{Outro}
+    \begin{frame}[nofootline, standout]
+        \centering
+        {\huge \textbf{Outro}}
+        \vspace{15pt}
+        \hrule
+        \vspace{15pt}
+        {\normalsize \textbf{If you have suggestions or improvements, please open an issue or pull request.}}
+    \end{frame}
+}
+% \section{Q&A}
+% \begin{frame}[nofootline, standout]
+%     \centering
+%     {\huge \textbf{Q&A}}
+%     \vspace{15pt}
+%     \hrule
+%     \vspace{15pt}
+%     \textbf{If you have suggestions or improvements, please open an issue or pull request.}
+% \end{frame}
 
 
 % -------------------- References (from the references.bib file) --------------------
