@@ -58,6 +58,21 @@
 \setbeamercolor{title separator}{fg=accentColor}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%   LANGUAGE     %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\figureName#1{\gdef\@figureName{#1}}
+\figureName{Figure} % Default value
+
+\def\tableName#1{\gdef\@tableName{#1}}
+\tableName{Table} % Default value
+
+\addto\captionspolish{%
+    \renewcommand{\figurename}{\@figureName}
+    \renewcommand{\tablename}{\@tableName}
+}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%   FOOTER     %%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -95,7 +110,8 @@
 \setbeamertemplate{subsection in toc}{%
     \begin{tikzpicture}[outer sep=0pt, inner sep=0pt, line width=0pt]
         \path[use as bounding box] (0,0) rectangle (\textwidth,0);
-        \node[anchor=base west] at (8ex,0) {\small \inserttocsubsection};
+        % \node[anchor=base west] at (8ex,0) {\small \color{secondaryDark!50!white} \inserttocsubsection};
+        \node[anchor=base west] at (12ex,0) {\small \color{secondaryDark!50!white} \textbullet~\inserttocsubsection};
     \end{tikzpicture}
 }
 
