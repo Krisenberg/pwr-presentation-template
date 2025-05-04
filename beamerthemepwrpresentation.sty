@@ -1,5 +1,9 @@
-%% Copyright (C) 2025-20** by Krzysztof Głowacz <krzysztof.glowacz88@gmail.com>
-%% 
+%% beamerthemepwrpresentation.sty
+%% Copyright (C) 2025 by Krzysztof Głowacz <krzysztof.glowacz88@gmail.com>
+%%
+%% This work is based on the Gotham Beamer theme
+%% Original Gotham theme Copyright (C) 2023-20** by Romain NOËL <romainoel@free.fr>
+%%
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
 %% of this license or (at your option) any later version.
@@ -11,11 +15,25 @@
 %% This work has the LPPL maintenance status `maintained'.
 %% 
 %% The Current Maintainer of this work is Krzysztof Głowacz.
-%% Contributors: Krzysztof Głowacz (2025-20**)
-%% 
-\NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{beamerthemepwr}[2025/05/02 LaTeX Beamer theme for presentations @PWR (WUST)]
+%% Contributors: Krzysztof Głowacz (2025)
+%%
 
+% Declare package
+\ProvidesPackage{beamerthemepwrpresentation}[2025/05/04 LaTeX Beamer theme for presentations @PWR (WUST)]
+
+% Load the base theme
+\usetheme{gotham}
+
+\gothamset{
+    numbering=none,
+    partframe default=off,  % Disable the display of the the part frame
+    subsectionframe default=off,  % Disable the display of the subsection frame
+    parttocframe default=off,  % Disable the display of the table of content frame after the part frame
+    sectiontocframe default=off,  % Disable the display of the table of content frame after the section
+    subsectiontocframe default=off,  % Disable the display of the table of content frame after the subsection
+    progressbar style=fixed circle,
+    % sectionframe template=gotham progressvert,
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%   PACKAGES     %%%%%%%%%%%%%
@@ -39,7 +57,8 @@
 \RequirePackage{tcolorbox}
 
 \RequirePackage{minted}  % Used for code snippet highligthing
-\usemintedstyle{emacs}
+
+% \RequirePackage{fontspec}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -57,6 +76,8 @@
 \setbeamercolor{progress bar}{fg=accentColor}
 \setbeamercolor{title separator}{fg=accentColor}
 
+\usemintedstyle{emacs}  % Code snippets style (mainly colors)
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%   LANGUAGE     %%%%%%%%%%%%%
@@ -71,6 +92,11 @@
     \renewcommand{\figurename}{\@figureName}
     \renewcommand{\tablename}{\@tableName}
 }
+
+% \SelectInputMappings{
+%     cacute={ć},
+%     lslash={ł}
+% }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -111,7 +137,7 @@
     \begin{tikzpicture}[outer sep=0pt, inner sep=0pt, line width=0pt]
         \path[use as bounding box] (0,0) rectangle (\textwidth,0);
         % \node[anchor=base west] at (8ex,0) {\small \color{secondaryDark!50!white} \inserttocsubsection};
-        \node[anchor=base west] at (12ex,0) {\small \color{secondaryDark!50!white} \textbullet~\inserttocsubsection};
+        \node[anchor=base west] at (12ex,0) {\tiny \textbullet~\inserttocsubsection};
     \end{tikzpicture}
 }
 
