@@ -12,18 +12,22 @@ A simple LaTeX template for presentations at Wrocław University of Science and 
 
 
 ## Attribution
-This template is based on the [beamertheme-gotham](https://gitlab.com/RomainNOEL/beamertheme-gotham) created by Romain NOEL. The original work has been sligthly modified, e.g. by adding a WUST affiliation (logo). All changes are drescribed here: [CHANGES](https://github.com/Krisenberg/pwr-presentation-template/blob/main/CHANGES.md).
+This template is based on the [beamertheme-gotham](https://gitlab.com/RomainNOEL/beamertheme-gotham) created by Romain NOEL. The original work has been sligthly customized - see [beamerthemepwrpresentation.sty](https://github.com/Krisenberg/pwr-presentation-template/blob/main/beamerthemepwrpresentation.sty).
 
 
 ## Preview
 <p align="center">
-  <img src="examples/first_page.png" width="48%" aria-label="First page screenshot from the example report"/>
-  <img src="examples/last_page.png" width="48%" aria-label="Last page screenshot from the example report"/>
+  <img src="./examples/title.png" width="48%" aria-label="Screenshot of the title slide from the example presentation"/>
+  <img src="./examples/table_of_contents.png" width="48%" aria-label="Screenshot of the slide with table of contents from the example presentation"/>
 </p>
-
-
-## Project Structure  
-
+<p align="center">
+  <img src="./examples/text_and_code_snippets.png" width="48%" aria-label="Screenshot of the slide with text and code snippets from the example presentation"/>
+  <img src="./examples/definitions.png" width="48%" aria-label="Screenshot of the slide with definitions from the example presentation"/>
+</p>
+<p align="center">
+  <img src="./examples/images.png" width="48%" aria-label="Screenshot of the slide with timages from the example presentation"/>
+  <img src="./examples/outro.png" width="48%" aria-label="Screenshot of the outro slide from the example presentation"/>
+</p>
 
 
 ## 🔧 Setup
