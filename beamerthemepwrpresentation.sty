@@ -32,8 +32,11 @@
     sectiontocframe default=off,  % Disable the display of the table of content frame after the section
     subsectiontocframe default=off,  % Disable the display of the table of content frame after the subsection
     progressbar style=fixed circle,
+    % tocframe template=gotham bullet,
     % sectionframe template=gotham progressvert,
 }
+
+% \usefonttheme{professionalfonts}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%   PACKAGES     %%%%%%%%%%%%%
@@ -51,6 +54,8 @@
 \RequirePackage[polish]{babel}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{xspace}
+% \RequirePackage{etoolbox}
+\RequirePackage[utf8]{inputenc}
 
 \RequirePackage{lipsum}  % Used for inserting text placeholders
 
@@ -98,6 +103,9 @@
 %     lslash={ł}
 % }
 
+% \RequirePacka[scaled]{helvet}
+% \renewcommand{\familydefault}{\sfdefault}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%   FOOTER     %%%%%%%%%%%%%
@@ -125,27 +133,82 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%   TABLE OF CONTENTS     %%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \setbeamertemplate{section in toc}{%
+%     \begin{tikzpicture}[outer sep=0pt, inner sep=0pt, line width=0pt, remember picture]
+%         \path[use as bounding box] (0,0) rectangle (\textwidth,0);
+%         \node[anchor=base east] (section-number-\inserttocsectionnumber) at (2ex,0) {\inserttocsectionnumber};
+%         \node[anchor=base west] (toc-\inserttocsectionnumber) at (8ex,0) { \inserttocsection};
+%     \end{tikzpicture}
+%     % \vspace{-1ex}  % Reduce vertical space after section
+% }
+
+% \setbeamertemplate{subsection in toc}{%
+%     \begin{tikzpicture}[outer sep=0pt, inner sep=0pt, line width=0pt]
+%         \path[use as bounding box] (0,0) rectangle (\textwidth,0);
+%         \node[anchor=base west] at (12ex,0) {\textbullet~\inserttocsubsection};
+%     \end{tikzpicture}
+%     % \vspace{-1ex}  % Reduce vertical space after subsection
+% }
+
+% \makeatletter
+% % \patchcmd{\beamer@sectionintoc}
+% %   {\vskip1.5em}
+% %   {\vskip0.2em}
+% %   {}
+% %   {}
+
+% % % Spacing for subsections - this is crucial for compactness
+% % \patchcmd{\beamer@subsectionintoc}
+% %   {\vskip0.75em}
+% %   {\vskip0.1em}
+% %   {}
+% %   {}
+% % \patchcmd{\beamer@sectionintoc}{\vskip1.5em}{\vskip0.5em}{}{}
+% % \setbeamertemplate{toc begin}{\vspace{-1ex}}
+
+% % % Reduce spacing between section items
+% % \patchcmd{\beamer@sectionintoc}{\vskip1.5em}{\vskip3em}{}{}
+
+% % % Reduce spacing between subsection items
+% % \patchcmd{\beamer@subsectionintoc}{\vskip0.75em}{\vskip0.3em}{}{}
+% \apptocmd{\tableofcontents}{%
+%     \begin{tikzpicture}[remember picture,overlay]
+%         \draw[accentColor,line width=0.1cm] ([xshift=4ex,yshift=2ex]section-number-1.north east) -- ([xshift=4ex,yshift=-2ex]section-number-\the\beamer@sectionmax.south east);
+%     \end{tikzpicture}%
+% }{}{}
+
+% % \patchcmd{\beamer@sectionintoc}{\vskip1.5em}{\vskip0.5em}{}{}
+% % \patchcmd{\beamer@sectionintoc}{\vfill}{\vskip0.2em}{}{}
+% \makeatother
 \setbeamertemplate{section in toc}{%
-    \begin{tikzpicture}[outer sep=0pt, inner sep=0pt, line width=0pt, remember picture]
-        \path[use as bounding box] (0,0) rectangle (\textwidth,0);
-        \node[anchor=base east] (section-number-\inserttocsectionnumber) at (2ex,0) {\inserttocsectionnumber};
-        \node[anchor=base west] (toc-\inserttocsectionnumber) at (8ex,0) { \inserttocsection};
-    \end{tikzpicture}
+ \begin{tikzpicture}[outer sep=0pt, inner sep=0pt, line width=0pt, remember picture]
+\path[use as bounding box] (0,0) rectangle (\textwidth,0);
+\node[anchor=base east] (section-number-\inserttocsectionnumber) at (2ex,0) {\inserttocsectionnumber};
+\node[anchor=base west] (toc-\inserttocsectionnumber) at (8ex,0) { \inserttocsection};
+\end{tikzpicture}
 }
 
 \setbeamertemplate{subsection in toc}{%
-    \begin{tikzpicture}[outer sep=0pt, inner sep=0pt, line width=0pt]
-        \path[use as bounding box] (0,0) rectangle (\textwidth,0);
-        % \node[anchor=base west] at (8ex,0) {\small \color{secondaryDark!50!white} \inserttocsubsection};
-        \node[anchor=base west] at (12ex,0) {\tiny \textbullet~\inserttocsubsection};
-    \end{tikzpicture}
+\begin{tikzpicture}[outer sep=0pt, inner sep=0pt, line width=0pt]
+\path[use as bounding box] (0,0) rectangle (\textwidth,0);
+\node[anchor=base west] at (12ex,0) {\textbullet~\inserttocsubsection};
+\end{tikzpicture}
 }
 
 \makeatletter
+% Add vertical spacing at the top and bottom of TOC
+% \setbeamertemplate{toc begin}{\vspace{6em}} % Add space at the top
+% \setbeamertemplate{toc end}{\vspace{2em}}   % Add space at the bottom
+
+% Control spacing between sections
+\patchcmd{\beamer@sectionintoc}{\vskip1.5em}{\vskip1em}{}{}
+% Control spacing between subsections
+\patchcmd{\beamer@subsectionintoc}{\vskip0.75em}{\vskip0.5em}{}{}
+
 \apptocmd{\tableofcontents}{%
-    \begin{tikzpicture}[remember picture,overlay]
-        \draw[accentColor,line width=0.1cm] ([xshift=4ex,yshift=2ex]section-number-1.north east) -- ([xshift=4ex,yshift=-2ex]section-number-\the\beamer@sectionmax.south east);
-    \end{tikzpicture}%
+\begin{tikzpicture}[remember picture,overlay]
+\draw[accentColor,line width=0.1cm] ([xshift=4ex,yshift=2ex]section-number-1.north east) -- ([xshift=4ex,yshift=-2ex]section-number-\the\beamer@sectionmax.south east);
+\end{tikzpicture}%
 }{}{}
 \makeatother
 
